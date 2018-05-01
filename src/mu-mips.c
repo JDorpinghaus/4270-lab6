@@ -546,7 +546,6 @@ void MEM()
         
       }
     } else {
-        printf("\njust put %x into cache block %x at word index %x", MEM_WB.B, blockIndex, wordOffset); 
       cacheStalling++;
     }
   }
