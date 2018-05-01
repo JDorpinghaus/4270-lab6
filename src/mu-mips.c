@@ -21,7 +21,7 @@ void help() {
 	printf("mdump <start> <stop>\t-- dump memory from <start> to <stop> address\n");
 	printf("high <val>\t-- set the HI register to <val>\n");
 	printf("low <val>\t-- set the LO register to <val>\n");
-	printf("print\t-- print the program loaded into memory\n");
+	printf("print\t-- print the program loaded into memory\n"); 
 	printf("show\t-- print the current content of the pipeline registers\n");
 	printf("forwarding\t-- Enable or disable data forwarding in the pipeline\n");
 	printf("?\t-- display help menu\n");
@@ -109,7 +109,7 @@ void runAll() {
 	while (RUN_FLAG){
 		cycle();
 	}
-	printf("Simulation Finished.\n\n");
+	printf("\nSimulation Finished.\n\n");
 }
 
 /***************************************************************/ 
@@ -460,7 +460,7 @@ void MEM()
     printf("\ncurrentTag: %x", currentTag);
     */
     
-    //HIT MISS LOGIC//
+    //HIT or MISS LOGIC//
     if((L1Cache.blocks[blockIndex].tag == currentTag) && (L1Cache.blocks[blockIndex].valid == 1)){
       printf("\nCACHE Hit!");
       //cache hit, so load/store from cache
@@ -546,6 +546,7 @@ void MEM()
         
       }
     } else {
+        printf("\njust put %x into cache block %x at word index %x", MEM_WB.B, blockIndex, wordOffset); 
       cacheStalling++;
     }
   }
@@ -867,8 +868,12 @@ void EX()
 				}
 				break;
 			case 0x5: //BNE
+        printf("\nBNE");
+        printf("\nEX_MEM.A : %x   EX_MEM.B : %x", EX_MEM.A, EX_MEM.B);
 				if(EX_MEM.A != EX_MEM.B){
+          
 					NEXT_STATE.PC = CURRENT_STATE.PC + (EX_MEM.imm << 2);
+          printf("\nNEXT_STATE.PC : %x", NEXT_STATE.PC);
 					flush();
 				}
 				break;
