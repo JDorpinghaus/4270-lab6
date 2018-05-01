@@ -461,7 +461,7 @@ void MEM()
     */
     
     //HIT or MISS LOGIC//
-    if((L1Cache.blocks[blockIndex].tag == currentTag) && (L1Cache.blocks[blockIndex].valid == 1) && FALSE){
+    if((L1Cache.blocks[blockIndex].tag == currentTag) && (L1Cache.blocks[blockIndex].valid == 1)){
       //printf("\nCACHE Hit!");
       //cache hit, so load/store from cache
       cache_hits++;
