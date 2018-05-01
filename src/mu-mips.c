@@ -871,11 +871,13 @@ void EX()
         printf("\nBNE");
         printf("\nEX_MEM.A : %x   EX_MEM.B : %x", EX_MEM.A, EX_MEM.B);
 				if(EX_MEM.A != EX_MEM.B){
-          
+          printf("\nBNE SUCCEED");
 					NEXT_STATE.PC = CURRENT_STATE.PC + (EX_MEM.imm << 2);
           printf("\nNEXT_STATE.PC : %x", NEXT_STATE.PC);
 					flush();
-				}
+				}else{
+          printf("\nBNE FAILED");
+        }
 				break;
 			case 0x6: //BLEZ
 				if((EX_MEM.A & 0x80000000) == 0x80000000 || EX_MEM.A == 0){
