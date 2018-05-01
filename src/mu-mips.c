@@ -353,9 +353,9 @@ void WB()
 	rs >>= 21;
 	
 	if(MEM_WB.memory_reference_load){
-    printf("WB_MEMWB DEST: %x    MEMWB LMD: %x",MEM_WB.destination, MEM_WB.LMD);
+    //printf("WB_MEMWB DEST: %x    MEMWB LMD: %x",MEM_WB.destination, MEM_WB.LMD);
 		NEXT_STATE.REGS[MEM_WB.destination] = MEM_WB.LMD;
-    printf("WB_NEXT STATE REG VALUE: %x", NEXT_STATE.REGS[MEM_WB.destination]);
+    //printf("WB_NEXT STATE REG VALUE: %x", NEXT_STATE.REGS[MEM_WB.destination]);
 	}
 	if(MEM_WB.register_register){
 		NEXT_STATE.REGS[MEM_WB.destination] = MEM_WB.ALUOutput;
@@ -462,16 +462,16 @@ void MEM()
     
     //HIT or MISS LOGIC//
     if((L1Cache.blocks[blockIndex].tag == currentTag) && (L1Cache.blocks[blockIndex].valid == 1)){
-      printf("\nCACHE Hit!");
+      //printf("\nCACHE Hit!");
       //cache hit, so load/store from cache
       cache_hits++;
       
       if(MEM_WB.memory_reference_load){
-        printf("\nCACHE Memory Load");
+        //printf("\nCACHE Memory Load");
         MEM_WB.LMD = L1Cache.blocks[blockIndex].words[wordOffset];
         //printf("\nCACHE_MEMWB LMD: %x", MEM_WB.LMD);
       } else if(MEM_WB.memory_reference_store){
-        printf("\nCACHE Memory Store");
+        //printf("\nCACHE Memory Store");
         L1Cache.blocks[blockIndex].words[wordOffset] = MEM_WB.B; //update cache
         
         fflush(stdout);
@@ -485,7 +485,7 @@ void MEM()
         writeBufferToMemory(blockAddress); //write write buffer to memory
       }
     } else {
-      printf("\nCACHE Miss!");
+      //printf("\nCACHE Miss!");
       fflush(stdout);
       //cache miss, start stalling
       cacheStalling++;
@@ -503,7 +503,7 @@ void MEM()
       stalling = 0;
       
       if(MEM_WB.memory_reference_load){
-        printf("\nCACHE Memory Load");
+        //printf("\nCACHE Memory Load");
         fflush(stdout);
         //read all words in block and place each into cache
         L1Cache.blocks[blockIndex].words[0] = mem_read_32(blockAddress);
@@ -518,7 +518,7 @@ void MEM()
         //printf("\nCACHE_MEMWB LMD: %x", MEM_WB.LMD);
 
       } else if(MEM_WB.memory_reference_store){
-        printf("\nCACHE Memory Store");
+        //printf("\nCACHE Memory Store");
         fflush(stdout);
         
          //read all words in block and place each into cache
@@ -531,10 +531,10 @@ void MEM()
         L1Cache.blocks[blockIndex].tag = currentTag;
         
         L1Cache.blocks[blockIndex].words[wordOffset] = MEM_WB.B; //update new word in cache
-        printf("\njust put %x into cache block %x at word index %x", MEM_WB.B, blockIndex, wordOffset);
+        //printf("\njust put %x into cache block %x at word index %x", MEM_WB.B, blockIndex, wordOffset);
         
         for(i = 0; i < 4; i++){
-          printf("\nValue at blockIndex %x word %x: %x",blockIndex,i,L1Cache.blocks[blockIndex].words[i]);
+          //printf("\nValue at blockIndex %x word %x: %x",blockIndex,i,L1Cache.blocks[blockIndex].words[i]);
         }
         
         //place updated cache block in write buffer
@@ -1324,7 +1324,7 @@ void show_pipeline(){
   
   printf("\nInstruction Count: %d", INSTRUCTION_COUNT);
   printf("\nHITS: %d", cache_hits);
-  printf("\nMISSES: %d", cache_misses);
+  printf("\nMISSES: %d\n\n", cache_misses);
 	
 }
 
@@ -1355,7 +1355,7 @@ int main(int argc, char *argv[]) {
 }
 
 void flush(void){
-	printf("flushing\n");
+	//printf("flushing\n");
 	memset(&IF_ID, 0, sizeof(EX_MEM));
 	memset(&ID_EX, 0, sizeof(ID_EX));
 }
