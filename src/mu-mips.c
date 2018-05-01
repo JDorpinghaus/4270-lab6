@@ -495,7 +495,7 @@ void MEM()
   } else {
     //MISS//
  
-    if(cacheStalling == 100){
+    if(cacheStalling == 2){
       //end of cache stalling
       //printf("\nEnd of stalling! memLoad: %d   memStore: %d", MEM_WB.memory_reference_load, MEM_WB.memory_reference_store);
       //fflush(stdout);
