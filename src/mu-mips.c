@@ -1323,6 +1323,8 @@ void show_pipeline(){
 	printf("\nENABLE_FORWARDING: %d", ENABLE_FORWARDING);
   
   printf("\nInstruction Count: %d", INSTRUCTION_COUNT);
+  printf("\nHITS: %d", cache_hits);
+  printf("\nMISSES: %d", cache_misses);
 	
 }
 
